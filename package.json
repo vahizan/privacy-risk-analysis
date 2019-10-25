@@ -44,10 +44,5 @@
     "enzyme-to-json": "^3.4.3",
     "eslint-plugin-cypress": "^2.7.0",
     "ts-jest": "^24.1.0"
-  },
-  "jest": {
-    "testPathIgnorePatterns": [
-      "cypress/"
-    ]
   }
 }
