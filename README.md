@@ -15,6 +15,7 @@
 ## What could've been done/improved
 
 - Integration tests with Cypress
+- Unable to fix number rounding errors - you will notice the last row, 'total', the numbers do not add up
 - Thorough error checking and fallback should've been implemented in some areas
 - Testing App.ts - the only file I didn't have time to test
 - Could've set up a CI pipeline with Travis CI - where linting and tests are run prior to a build, which in turn will be deployed to a server e.g netlify, surge, heroku, etc.
