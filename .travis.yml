@@ -1,0 +1,39 @@
+  language: node_js
+  node_js:
+    - 8.11.2
+  sudo: required
+  cache:
+    npm: true
+    directories:
+      - "/home/travis/.cache/Cypress"
+      - "~/.npm"
+  install:
+    - npm install
+    - npm install -g cypress
+    - npm install -g cypress-image-snapshot
+  before_script:
+    - PATH=${PATH//:\.\/node_modules\/\.bin/}
+    - mkdir public
+    - curl -sO http://stedolan.github.io/jq/download/linux64/jq
+    - ngrok authtoken ${NGROK_AUTH_TOKEN} > /dev/null &
+    - ngrok http file://$(pwd)/ --authtoken=${NGROK_AUTH_TOKEN} > /dev/null &
+    - sleep 3
+  script:
+    - echo "vahizan@hotmail.com" | npm run lint
+    - npm run build && npm run zip
+    - NGROK_PATH=$(curl 'http://127.0.0.1:4040/api/tunnels' | jq -r '.tunnels[0].public_url')/loan-calculator.zip
+    - cypress run --env URL=${NGROK_PATH}
+  addons:
+    chrome: stable
+    apt:
+      packages:
+        - libgconf-2-4
+  notifications:
+    email: false
+    slack:
+      secure: RvPL7N56A4CGjVaMdqm2Mcz9pPum7qDr1sn8lvSQvZdz0gHCA4340vhwbC+Ca7BpObE6hGGadsO6FrPVs6PXYQoISm5AW/WkSDmgKKebMxRrHqLrwmtn6Y3/jxNlIWsF5vaz8R/Teq204CGRclUMONfJHw7YbmNt7Qco2OYjU2BpRZo9DZ360nSWYFHa+Ohngh2hMHGWpQVBsYl5tayiy8l8C1/TPKU+Yo5j6rvmzAOviSd0mQtPiwWO5q7exJUJpoX0GKUK4vMFrrBSNdX9Q2LoCNH8RI9br58hHv3s2jeO06rEYV3txVhUViBrNwRY6SNv4Fy0eqFkstXJIXUy7nPVV10lkt/6vd9iRaW5Vansl4TMG4gP5wNRSiMqldxgntXT0geyHGFZezi1sO/wy5JJ7QtPzrLtR/7OpzOHfcHfEI9fvB2GH8/5Vs4vBBKT0rDf30nuhEbGlcvPWMIAnUVAMu6fmp7tdQtmYZC3pBhYAdVbnsddHF0yXcCvSSLUKOUWyxOwIqcjughFmoAzKlrDCl42MX2wohHNJr9ZDhYuu1e2eaVQ8ypg+Tkh6Ss/4lBjHrHFgF+YYoN1rTokA6ChCiTw8r8VEitrHkL/GT1vQKRvHr+f+PbbAfV4FCdLbv/k6OytMnsoPhmAQJ6tAcEbVqgiQouFaKN4Oh3PpeQ=
+      on_success: change
+      on_pull_requests: false
+      template:
+        - "%{repository_slug} (%{commit}) : %{message}"
+        - 'Build details: %{build_url}'
