@@ -1,0 +1,11 @@
+.number-input{
+  margin: 20px;
+}
+.number-input input{
+  width: 98%;
+  border: 1px solid black;
+  color: black;
+  padding:20px;
+  margin-top:10px;
+}
+
