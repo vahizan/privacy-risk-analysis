@@ -60,27 +60,5 @@ describe('Accordion', () => {
             cy.get('[data-cy=person-accordion-24]').find(selectors.content).should('be.visible');
             cy.get('[data-cy=person-accordion-23]').find(selectors.content).should('not.exist');
         });
-
-        // describe('search button click - all devices', () => {
-        //
-        // });
-        //
-        //
-        //
-        // it('contains - search modal with correct attrs', () => {
-        //
-        // });
-        // it('contains - search modal with correct data shown', () => {
-        //    cy.get(headerSelectors.searchMenu).find(searchSelectors.sectionId).should('have.length', 1);
-        // });
-
-        describe.skip('Search Menu Style', () => {
-            // sizes.forEach((size) => {
-            //     it(`search menu on '${size}' resolution`, () => {
-            //         cy.setResolution(size);
-            //         cy.matchImageSnapshot(`searchBoxHidden-${size}`);
-            //     });
-            // });
-        });
     });
 });
