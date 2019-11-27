@@ -1,0 +1,12 @@
+.header-links {
+    display: flex;
+    border: 1px solid black;
+    align-self: center;
+    padding-left: 50px;
+    cursor: pointer;
+}
+
+.header-links * {
+   padding: 10px;
+}
+

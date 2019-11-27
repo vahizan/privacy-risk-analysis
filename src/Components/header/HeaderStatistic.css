@@ -1,0 +1,7 @@
+.header-statistic {
+    display: flex;
+    align-items: center;
+}
+.header-statistic__value{
+    padding-right: 20px;
+}

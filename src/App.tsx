@@ -1,100 +1,80 @@
-// @ts-ignore
-import React, {PureComponent} from 'react';
-import LoanRepaymentsTable from "./Components/LoanRepaymentsTable";
+import React, {useState} from 'react';
+import AppContext from "./AppContext";
+
+import {HeaderLinks} from "./Components/HeaderLinks";
+import {HeaderStatistic} from "./Components/header/HeaderStatistic";
+import {FooterContainer} from "./Components/FooterContainer";
+import {AccordionList} from "./Components/AccordionList";
+import {AccordionType} from "./Components/accordion/Constants";
+import {PersonField} from "./Components/PersonField";
+
 import './App.css';
-import NumberInput from "./Components/NumberInput";
-import {BL,RCF, InputType, LoanType} from "./utils/constants";
-import PropTypes from "prop-types";
-import {isAnyBelowZero} from "./utils/calculator";
 
-//import PropTypes from "prop-types";
-class App extends PureComponent{
-  constructor(props: Readonly<{}>) {
-    super(props);
-  }
-  state = {
-    amountRequested: -1,
-    duration: -1,
-    interestRCF: -1,
-    interestBL: -1,
-  };
-
-  onType = (type: InputType) => (event: any) => {
-      const value = parseInt(event.target.value);
-      switch (type) {
-          case InputType.BL:
-              this.setState({
-                  interestBL: value,
-              });
-              break;
-
-          case InputType.RCF:
-              this.setState({
-                  interestRCF: value,
-              });
-              break;
-
-          case InputType.TOTAL_AMOUNT:
-              this.setState({
-                  amountRequested: value,
-              });
-              break;
-
-          case InputType.DURATION:
-              this.setState({
-                  duration: value,
-              });
-              break;
-      }
-  };
-
-
-  render() {
-    const { interestRCF, interestBL,duration, amountRequested } = this.state;
-    console.log('interestRCF', interestRCF);
-    console.log('interestBL', interestBL);
-    const isAnyRCFValuesBelowZero = isAnyBelowZero([interestRCF, duration, amountRequested]);
-    const isAnyBLValuesBelowZero = isAnyBelowZero([interestBL, duration, amountRequested]);
-    return (
-      <div className="App">
-          <div className="content">
-              <div className="price-duration-input-container">
-                  <div className="input-total-amount">
-                      <NumberInput id="requested-amount" label="Amount Requested" keyPress={this.onType(InputType.TOTAL_AMOUNT)}/>
-                  </div>
-                  <div className="input-duration">
-                      <NumberInput id="duration" label="Duration" keyPress={this.onType(InputType.DURATION)}/>
-                  </div>
-              </div>
-              <div className="table-container">
-                 <div className="rcf-table-container">
-                     <div>{RCF.TITLE}</div>
-                    <div className="input-rcf">
-                        <NumberInput id="rcf" label="Interest Rate" keyPress={this.onType(InputType.RCF)}/>
-                    </div>
-                     { !isAnyRCFValuesBelowZero &&
-                        (<div data-cy="rcf-table">
-                             <LoanRepaymentsTable type={LoanType.RCF} amountRequested={amountRequested} duration={duration} interestRate={interestRCF}/>
-                         </div>
-                        )
-                     }
+export const App = () => {
+      const [isClicked, updateClicked] = useState(false);
+      const [personData, updatePersonData] = useState([
+          {
+              "id": 23,
+              "first_name": "Pearl",
+              "last_name": "Mendoza",
+              "age": 65,
+              "nationality": "Bahrain",
+              "risk_percentage": 39
+          },
+          {
+              "id": 24,
+              "first_name": "Wing",
+              "last_name": "Glass",
+              "age": 54,
+              "nationality": "Iran",
+              "risk_percentage": 68
+          },
+          {
+              "id": 25,
+              "first_name": "Rudyard",
+              "last_name": "Hubbard",
+              "age": 2,
+              "nationality": "Rwanda",
+              "risk_percentage": 75
+          }]);
+      const store = {
+          data: personData,
+          isSubmitButtonClicked: isClicked,
+          updateData: updatePersonData,
+          setSubmitClickValue: updateClicked,
+      };
+      const buttonClick = () => {
+          updateClicked(true);
+      };
+      return (
+          <div className="app">
+              <header className="app__header">
+                 <div className="app__header--left">
+                   <h1 className="app__header__title">Privitar Privacy Protector</h1>
+                   <HeaderLinks>
+                     <div>LINK ONE</div>
+                     <div>LINK TWO</div>
+                     <div>LINK THREE</div>
+                   </HeaderLinks>
                  </div>
-                <div className="bl-table-container">
-                    <div>{BL.TITLE}</div>
-                    <div className="input-bl">
-                        <NumberInput id="bl" label="Interest Rate" keyPress={this.onType(InputType.BL)}/>
-                    </div>
-                    { !isAnyBLValuesBelowZero && (
-                        <div data-cy="bl-table">
-                            <LoanRepaymentsTable type={LoanType.BL} amountRequested={amountRequested} duration={duration} interestRate={interestBL}/>
-                        </div>
-                    )}
-                </div>
+                 <div className="app__header--right">
+                     <HeaderStatistic title="people protected" statValue={0}/>
+                 </div>
+              </header>
+              <div className="app__content-wrapper">
+              <div className="app__content">
+                <AppContext.Provider value={store}>
+                  <AccordionList accordionType={AccordionType.Person} data={store.data}/>
+                  <PersonField formId="new-person"/>
+                  <button data-cy="new-person-form-submit-button" onClick={buttonClick}>Add Person(s)</button>
+                </AppContext.Provider>
+              </div>
+              </div>
+              <div className="app__footer">
+                 <FooterContainer title="Privitar"/>
               </div>
           </div>
-      </div>
-    )
-  };
-}
+      );
+};
 
 export default App;
