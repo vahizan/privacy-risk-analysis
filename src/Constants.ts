@@ -2,7 +2,7 @@ export enum AccordionType {
     Person= "Person",
 }
 
-export interface PersonAccordionInterface {
+export interface PersonAccordionData{
     id: number,
     first_name: string,
     last_name: string,
@@ -10,6 +10,3 @@ export interface PersonAccordionInterface {
     nationality: string,
     risk_percentage: number,
 }
-
-
-

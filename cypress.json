@@ -1,1 +1,4 @@
-{}
+{
+  "api_key": "stored in cypress.env.json, which is an ignored file",
+  "url": "stored in cypress.env.json, which is an ignored file"
+}
