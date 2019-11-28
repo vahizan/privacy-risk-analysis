@@ -1,0 +1,27 @@
+.footer-container {
+  width: inherit;
+  display: flex;
+  justify-content: flex-start;
+  z-index: 1;
+  background-color: antiquewhite;
+  bottom: 0;
+  max-height: 100px;
+}
+
+.footer-container__title-wrapper{
+  display: flex;
+  align-items: center;
+  padding: 20px;
+}
+
+.footer-container__title-wrapper__copyright-info{
+  padding-left: 20px;
+}
+
+.footer-container__title-wrapper__title{
+  padding-left: 20px;
+}
+
+.footer-container__title-wrapper__date {
+  padding-left: 20px;
+}
