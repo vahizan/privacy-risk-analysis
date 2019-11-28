@@ -7,7 +7,7 @@ type Props = {
 export const HeaderStatistic = (props : Props) => {
     return (
         <div className="header-statistic">
-            <div className="header-statistic__value"> {props.statValue} </div>
+            <h1 className="header-statistic__value"> {props.statValue} </h1>
             <h1>{props.title}</h1>
         </div>
     );

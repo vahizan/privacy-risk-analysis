@@ -1,12 +1,15 @@
 import * as React from "react";
 
 import './footer/FooterContainer.css';
-import {PersonAccordionInterface} from "./accordion/Constants";
+import {PersonAccordionData} from "../Constants";
 import {useContext, useEffect, useState} from "react";
+
 import {AccordionContext} from "./accordion/Context";
 
+import './accordion/PersonAccordion.css';
+
 type Props = {
-    data: PersonAccordionInterface
+    data: PersonAccordionData
 };
 
 export const PersonAccordion = (props : Props) => {
@@ -38,13 +41,13 @@ export const PersonAccordion = (props : Props) => {
             { isVisible && context.id === id && (
                 <div data-cy="accordion-content" className="person-accordion__content">
                     <div className="person-accordion__content__age">
-                        {age}
+                        <span>Age: </span><span> {age}</span>
                     </div>
                     <div className="person-accordion__content__nationality">
-                        {nationality}
+                        <span>Nationality: </span><span> {nationality}</span>
                     </div>
                     <div className="person-accordion__content__privacy-risk">
-                        {risk_percentage}%
+                        <span>Risk Percentage: </span><span> {risk_percentage}% </span>
                     </div>
                 </div>
             )}

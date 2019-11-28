@@ -1,0 +1,32 @@
+.person-accordion {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    min-height: 30px;
+    border: 3px solid #a6a6a6;
+    margin: 10px;
+    font-weight: bold;
+}
+.person-accordion__header{
+    display:inline-flex;
+    justify-content: space-around;
+    width: inherit;
+    font-size: 1.2rem;
+}
+.person-accordion__content{
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex-direction: column;
+}
+.person-accordion__content__age{
+    padding: 20px;
+}
+
+.person-accordion__content__nationality{
+    padding: 20px;
+}
+
+.person-accordion__content__privacy-risk{
+    padding: 20px;
+}
